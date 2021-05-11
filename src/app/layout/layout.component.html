@@ -1,0 +1,129 @@
+<!-- Toolbar -->
+<mat-toolbar>
+  <div class="w-100 d-flex h-100 align-items-center justify-content-between">
+    <!-- Logo  -->
+    <div
+      class="logo-container h-100 text-center d-flex align-items-center justify-content-center"
+    >
+      <img class="logo d-flex" src="assets/imgs/logo.jpeg" alt="Logo" />
+    </div>
+    <!-- Menu Toggle -->
+    <div
+      class="toolbar-actions w-100 h-100 d-flex align-items-center justify-content-between px-3"
+    >
+      <button
+        mat-icon-button
+        *ngIf="sidenav.mode !== 'over'"
+        (click)="sidenav.toggle()"
+      >
+        <mat-icon class="toolbar-icon"> menu </mat-icon>
+      </button>
+      <button
+        mat-icon-button
+        *ngIf="sidenav.mode === 'over'"
+        (click)="sidenav.toggle()"
+      >
+        <mat-icon class="toolbar-icon"> menu </mat-icon>
+      </button>
+      <!-- Logo in responsive -->
+      <div class="d-flex">
+        <!-- Actions -->
+        <div class="mr-4 align-items-center d-none d-lg-flex"></div>
+        <!-- Profile -->
+        <div ngbDropdown class="d-inline-block">
+          <button
+            class="bg-transparent border-0"
+            id="dropdownProfile"
+            ngbDropdownToggle
+          >
+            <img src="assets/imgs/user.jpg" alt="User" class="user" />
+          </button>
+          <div ngbDropdownMenu aria-labelledby="dropdownProfile">
+            <div class="main-header-profile p-3">
+              <div class="d-flex w-100">
+                <div class="main-user-img mr-2">
+                  <img src="assets/imgs/user.jpg" alt="user" />
+                </div>
+                <div class="ml-2 my-auto" style="line-height: 10px">
+                  <h6 class="text-white poppins text-capitalize">
+                    {{ user.name }}
+                  </h6>
+                  <span class="poppins">Admin</span>
+                </div>
+              </div>
+            </div>
+            <ul
+              class="list-unstyled p-0 user-actions mt-3"
+              [routerLink]="['/users/add-user']"
+              [queryParams]="{ id: user.id, editMode: true }"
+            >
+              <li class="d-flex align-items-center">
+                <mat-icon class="mr-2">person</mat-icon>
+                <span class="poppins">Profile</span>
+              </li>
+
+              <li class="d-flex align-items-center" (click)="logout()">
+                <mat-icon class="mr-2">power_settings_new</mat-icon>
+                <span class="poppins">Logout</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</mat-toolbar>
+<!-- Side Menu  -->
+<mat-sidenav-container>
+  <mat-sidenav #sidenav="matSidenav" class="">
+    <div class="w-100">
+      <img class="avatar" src="assets/imgs/user.jpg" alt="Logo" />
+      <span class="profile-status"></span>
+    </div>
+    <div class="user-info text-center my-3">
+      <h4 class="mb-1 poppins text-capitalize">{{ user.name }}</h4>
+      <span>Admin</span>
+    </div>
+    <mat-divider class="my-3"></mat-divider>
+    <div>
+      <button
+        mat-button
+        class="menu-button d-flex align-items-center my-2"
+        routerLink="/dashboard"
+        routerLinkActive="active"
+      >
+        <mat-icon class="toolbar-icon">dashboard</mat-icon>
+        <span class="poppins">Dashboard</span>
+      </button>
+      <button
+        mat-button
+        class="menu-button d-flex align-items-center my-2"
+        routerLink="/pages"
+        routerLinkActive="active"
+      >
+        <mat-icon class="toolbar-icon">label</mat-icon>
+        <span class="poppins">Pages</span>
+      </button>
+      <button
+        mat-button
+        class="menu-button d-flex align-items-center my-2"
+        routerLink="/users"
+        routerLinkActive="active"
+      >
+        <mat-icon class="toolbar-icon">supervised_user_circle</mat-icon>
+        <span class="poppins">Users</span>
+      </button>
+
+      <mat-divider></mat-divider>
+      <button mat-button class="menu-button d-flex align-items-center my-2">
+        <mat-icon class="toolbar-icon">help</mat-icon>
+        <span class="poppins">Activities Log</span>
+      </button>
+    </div>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <div class="content px-3">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

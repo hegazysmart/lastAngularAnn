@@ -1,0 +1,208 @@
+<section id="pages" class="wow fadeIn">
+  <div class="d-flex align-items-center justify-content-between">
+    <!-- BreadCurme -->
+    <div class="breadcurme d-flex align-items-center">
+      <mat-icon>label</mat-icon>
+      <div>
+        <span class="ml-2 font-weight-bold pointer" routerLink="/pages"
+          >Pages</span
+        >
+        <span> - Bluk Upload</span>
+      </div>
+    </div>
+    <div>
+      <button
+        mat-button
+        class="menu-button d-flex align-items-center add-btn"
+        routerLink="/users/add-user"
+        type="button"
+      >
+        <mat-icon>label</mat-icon>
+        <span>Pages List</span>
+      </button>
+    </div>
+  </div>
+  <form
+    [formGroup]="pageForm"
+    class="wow fadeIn row w-100 mx-0 align-items-stretch h-100"
+  >
+    <div
+      formArrayName="pages"
+      *ngFor="let item of pageFormArray['controls']; let i = index"
+      class="col-lg-4 h-100"
+    >
+      <div class="h-100" [formGroupName]="i">
+        <div class="card p-3 border-0 text-center mt-3 h-100">
+          <h4 class="font-weight-bold text-uppercase">Page {{ i + 1 }}</h4>
+          <div class="card-body p-0">
+            <div class="background">
+              <img
+                class="w-100 bg-default"
+                [src]="
+                  bgSRC[i]
+                    ? bgSRC[i]
+                    : 'https://image.freepik.com/free-vector/white-blurred-background_1034-249.jpg'
+                "
+                alt="Image"
+              />
+              <mat-form-field class="w-100 mt-3" appearance="fill">
+                <ngx-mat-file-input
+                  formControlName="backgroundURL"
+                  placeholder="Upload Background"
+                  #removableBG
+                  accept="image/*"
+                  (input)="uploadBackground($event, i)"
+                >
+                  <mat-icon ngxMatFileInputIcon>folder</mat-icon>
+                </ngx-mat-file-input>
+                <button
+                  mat-icon-button
+                  class="border-0 bg-transparent"
+                  matSuffix
+                  type="button"
+                  *ngIf="!removableBG.empty"
+                  (click)="removeBG(i)"
+                >
+                  <mat-icon>clear</mat-icon>
+                </button>
+              </mat-form-field>
+            </div>
+            <img
+              *ngIf="imgSRC[i]"
+              class="imgContent"
+              [src]="imgSRC[i]"
+              alt=""
+            />
+            <video
+              [src]="videoSRC[i]"
+              controls
+              *ngIf="videoSRC[i]"
+              class="imgContent"
+            ></video>
+          </div>
+          <div class="info mt-4 py-4 bg-grey">
+            <h3 class="font-weight-bold text-uppercase">Page Info:</h3>
+            <div class="px-3">
+              <mat-form-field appearance="fill" class="w-100">
+                <mat-label>Page Name</mat-label>
+                <input
+                  matInput
+                  placeholder="Page Name"
+                  formControlName="name"
+                />
+                <mat-hint>The page name appears in the URL.</mat-hint>
+              </mat-form-field>
+              <mat-form-field appearance="fill" class="w-100 mt-4">
+                <input
+                  matInput
+                  [ngxMatDatetimePicker]="picker"
+                  placeholder="Duration"
+                  formControlName="duration"
+                />
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="$any(picker)"
+                ></mat-datepicker-toggle>
+                <ngx-mat-datetime-picker
+                  #picker
+                  [showSpinners]="showSpinners"
+                  [showSeconds]="showSeconds"
+                  [stepHour]="stepHour"
+                  [stepMinute]="stepMinute"
+                  [stepSecond]="stepSecond"
+                  [touchUi]="touchUi"
+                  [color]="color"
+                  [enableMeridian]="true"
+                >
+                  <ng-template>
+                    <span>OK</span>
+                  </ng-template>
+                </ngx-mat-datetime-picker>
+              </mat-form-field>
+              <div class="media-section w-100">
+                <mat-form-field appearance="fill" class="w-100">
+                  <ngx-mat-file-input
+                    #removableInput
+                    formControlName="media"
+                    (input)="uploadDocument($event, i)"
+                    accept="image/*, video/*"
+                    placeholder="Upload Content"
+                  ></ngx-mat-file-input>
+                  <button
+                    mat-icon-button
+                    class="border-0 bg-transparent"
+                    matSuffix
+                    type="button"
+                    *ngIf="!removableInput.empty"
+                    (click)="removeMediaFunction(i)"
+                  >
+                    <mat-icon>clear</mat-icon>
+                  </button>
+                  <mat-hint>Accept Images and Videos.</mat-hint>
+                </mat-form-field>
+              </div>
+              <mat-progress-bar
+                class="mt-3 w-100"
+                mode="determinate"
+                [value]="progress"
+              ></mat-progress-bar>
+            </div>
+          </div>
+          <div
+            class="info mt-4 d-flex align-items-center justify-content-center"
+          >
+            <button
+              class="
+                btn-primary
+                py-2
+                px-3
+                d-flex
+                align-items-center
+                justify-content-center
+              "
+            >
+              <mat-icon>save</mat-icon>
+              <span class="ml-2">Save</span>
+            </button>
+            <button
+              class="
+                btn-secondary
+                mx-3
+                py-2
+                px-3
+                d-flex
+                align-items-center
+                justify-content-center
+              "
+            >
+              <mat-icon>slideshow</mat-icon>
+              <span class="ml-2">Preview</span>
+            </button>
+            <button
+              (click)="removePage(i)"
+              class="
+                btn-delete
+                py-2
+                px-3
+                d-flex
+                align-items-center
+                justify-content-center
+              "
+            >
+              <mat-icon>delete</mat-icon>
+              <span class="ml-2">Remove</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button
+      class="add-page-btn d-flex align-items-center flex-column m-3"
+      type="button"
+      (click)="addItem()"
+    >
+      <mat-icon>add_circle</mat-icon>
+      <span class="font-weight-bold mt-3 text-uppercase">Add new page</span>
+    </button>
+  </form>
+</section>

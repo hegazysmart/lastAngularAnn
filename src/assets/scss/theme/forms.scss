@@ -1,0 +1,50 @@
+.btn-primary {
+  background: $primary;
+  color: #fff !important;
+  border: 1px solid $primary !important;
+  &:hover {
+    transition: 0.5s all ease-in-out;
+  }
+}
+
+.btn-secondary {
+  background: transparent !important;
+  border: 1px solid $primary !important;
+  color: $primary !important;
+  &:hover {
+    background: $primary !important;
+    color: #fff !important;
+    transition: 0.5s all ease-in-out;
+  }
+}
+
+.btn-delete {
+  background: #adadad;
+  border: 1px solid #adadad;
+  color: #fff;
+  &:hover {
+    transition: 0.5s all ease-in-out;
+    background: #696969;
+  }
+}
+
+.add-btn {
+  background: $primary;
+  color: #fff;
+  min-width: 64px;
+  line-height: 36px;
+  padding: 0 16px;
+  border: 0;
+  border-radius: 4px;
+}
+.file {
+  display: none;
+}
+.upload-btn {
+  border: 0;
+  background-color: #6c757d;
+  padding: 8px 20px;
+  border-radius: 8px;
+  color: #fff;
+  font-weight: bold;
+}

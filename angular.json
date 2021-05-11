@@ -31,9 +31,19 @@
               "src/assets"
             ],
             "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "./node_modules/ngx-toastr/toastr.css",
+              "./node_modules/wowjs/css/libs/animate.css",
+              "./node_modules/animate.css/animate.min.css",
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "./node_modules/jquery/dist/jquery.js",
+              "./node_modules/wowjs/dist/wow.min.js",
+              "./node_modules/bootstrap/dist/js/bootstrap.min.js",
+              "./src/assets/animate/animate.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -94,6 +104,7 @@
               "src/assets"
             ],
             "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.scss"
             ],
             "scripts": []

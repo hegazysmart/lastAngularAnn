@@ -1,0 +1,51 @@
+<section id="login" class="wow fadeIn mt-4">
+    <div class="container">
+        <div class="card py-lg-5 p-3 text-center">
+        <div class="row w-100 mx-0">
+            <div class="col-lg-5 my-3">
+                    <img src="assets/imgs/logo.jpeg" class="img" alt="">
+                    <h2 class="text-uppercase font-weight-bold">Announcement Application</h2>
+                </div>
+                <div class="col-lg-5 my-3">
+                    <h2 class="font-weight-bold">Login</h2>
+                    <p>Please Login to make an announcement</p>
+                    <form [formGroup]="loginForm" class="mt-5" (ngSubmit)="onLogin(loginForm.value)">
+                        <!-- Email -->
+                        <mat-form-field appearance="fill" class="w-100 wow fadeIn">
+                            <mat-label>Email address</mat-label>
+                            <input matInput placeholder="Email address" type="email" required formControlName="email">
+                            <!-- Email Validation -->
+                            <mat-hint class="text-danger" *ngIf="loginForm.controls.email.touched">
+                                <span *ngIf="loginForm.controls.email.errors?.required">
+                                    This field is required!
+                                </span>
+                                <span *ngIf="loginForm.controls.email.errors?.email">
+                                    Invalid Email
+                                </span>
+                            </mat-hint>
+                        </mat-form-field>
+                        <!-- Password -->
+                        <mat-form-field appearance="fill" class="w-100 mt-3 wow fadeIn">
+                            <mat-label>Password</mat-label>
+                            <input matInput placeholder="Password" type="password" required formControlName="password">
+                            <!-- Password Validation -->
+                            <mat-hint class="text-danger" *ngIf="loginForm.controls.password.touched">
+                                <span *ngIf="loginForm.controls.password.errors?.required">
+                                    This field is required!
+                                </span>
+                                <span *ngIf="loginForm.controls.password.errors?.minlength">
+                                    Please enter at least 6 characters
+                                </span>
+                            </mat-hint>
+                        </mat-form-field>
+                        <button class="btn btn-primary w-100 mt-4 wow fadeIn">Login</button>
+                        <div class="w-100 my-4">
+                            <a class="link wow fadeIn" routerLink="/auth/forget-password">Forget Password?</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
