@@ -1,0 +1,345 @@
+<section id="pages" class="wow fadeIn">
+  <div class="d-flex align-items-center justify-content-between">
+    <!-- BreadCurme -->
+    <div class="breadcurme d-flex align-items-center">
+      <mat-icon>label</mat-icon>
+      <div>
+        <span class="ml-2 font-weight-bold pointer" routerLink="/pages"
+          >Pages</span
+        >
+        <span> - Bluk Upload</span>
+      </div>
+    </div>
+    <div>
+      <button
+        mat-button
+        class="menu-button d-flex align-items-center add-btn"
+        routerLink="/users/add-user"
+        type="button"
+      >
+        <mat-icon>label</mat-icon>
+        <span>Pages List</span>
+      </button>
+    </div>
+  </div>
+  <form
+    [formGroup]="pageForm"
+    class="wow fadeIn row w-100 mx-0 align-items-stretch h-100"
+  >
+    <div
+      formArrayName="pages"
+      *ngFor="let item of pageFormArray['controls']; let i = index"
+      class="col-lg-6 h-100"
+    >
+      <div class="h-100" [formGroupName]="i">
+        <div class="card p-3 border-0 text-center mt-3 h-100">
+          <div
+            class="text-center"
+            *ngIf="this.pageForm.controls.pages.value[i].hasError"
+          >
+            <mat-icon class="text-danger"> error </mat-icon>
+            <p class="text-danger">Faild Uploaded</p>
+          </div>
+          <h4 class="font-weight-bold text-uppercase">Page {{ i + 1 }}</h4>
+          <div class="card-body p-0">
+            <mat-form-field appearance="fill" class="w-100 mt-4">
+              <mat-label>Page Name</mat-label>
+              <input matInput placeholder="Page Name" formControlName="name" />
+              <mat-hint
+                *ngIf="this.pageForm.controls.pages.value[i].name"
+                class="text-success"
+                >The page name appears in the URL.</mat-hint
+              >
+              <mat-hint
+                class="text-danger"
+                *ngIf="
+                  this.pageForm.controls.pages.touched &&
+                  !this.pageForm.controls.pages.value[i].name
+                "
+                >Page Name is required !</mat-hint
+              >
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="w-100 mt-4">
+              <input
+                matInput
+                [ngxMatDatetimePicker]="picker"
+                placeholder="Duration"
+                formControlName="expiry_at"
+                [min]="startDate"
+              />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="$any(picker)"
+              ></mat-datepicker-toggle>
+              <ngx-mat-datetime-picker
+                #picker
+                [showSpinners]="showSpinners"
+                [showSeconds]="showSeconds"
+                [stepHour]="stepHour"
+                [stepMinute]="stepMinute"
+                [stepSecond]="stepSecond"
+                [touchUi]="touchUi"
+                [color]="color"
+                [enableMeridian]="true"
+              >
+                <ng-template>
+                  <span>OK</span>
+                </ng-template>
+              </ngx-mat-datetime-picker>
+              <mat-hint
+                class="text-danger"
+                *ngIf="
+                  this.pageForm.controls.pages.touched &&
+                  !this.pageForm.controls.pages.value[i].expiry_at
+                "
+              >
+                Duration is required !
+              </mat-hint>
+            </mat-form-field>
+            <div class="background">
+              <span class="font-weight-bold">Upload Background</span>
+              <img
+                class="w-100 mt-3 bg-default"
+                [src]="
+                  this.pageForm.controls.pages.value[i].backgroundURL
+                    ? this.pageForm.controls.pages.value[i].backgroundURL
+                    : 'https://image.freepik.com/free-vector/white-blurred-background_1034-249.jpg'
+                "
+                alt="Image"
+              />
+              <mat-form-field
+                class="mt-3 w-100 full-width-btn"
+                appearance="fill"
+              >
+                <ngx-mat-file-input
+                  formControlName="background"
+                  placeholder="Upload Background"
+                  #removableBG
+                  accept="image/*"
+                  (input)="uploadBackground($event, i)"
+                >
+                  <mat-icon ngxMatFileInputIcon>folder</mat-icon>
+                </ngx-mat-file-input>
+              </mat-form-field>
+              <button
+                mat-icon-button
+                class="border-0"
+                matSuffix
+                type="button"
+                (click)="removeBG(i)"
+                style="
+                  position: absolute;
+                  top: 299px;
+                  right: 29px;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                "
+                *ngIf="this.pageForm.controls.pages.value[i].background"
+              >
+                <mat-icon>clear</mat-icon>
+              </button>
+            </div>
+            <img
+              class="w-100"
+              style="height: 333px"
+              *ngIf="
+                pageForm.controls.pages.value[i].mediaURL &&
+                !pageForm.controls.pages.value[i].isVideo
+              "
+              [src]="pageForm.controls.pages.value[i].mediaURL"
+              alt=""
+            />
+            <video
+              [src]="pageForm.controls.pages.value[i].mediaURL"
+              controls
+              *ngIf="
+                pageForm.controls.pages.value[i].mediaURL &&
+                pageForm.controls.pages.value[i].isVideo
+              "
+              class="img-fluid"
+            ></video>
+          </div>
+          <div class="info py-4">
+            <span class="font-weight-bold"
+              >Upload Media Content <span class="text-danger">*</span></span
+            >
+            <div class="">
+              <!-- <mat-form-field appearance="fill" class="w-100">
+                <mat-label>Page Name</mat-label>
+                <input
+                  matInput
+                  placeholder="Page Name"
+                  formControlName="name"
+                />
+                <mat-hint
+                  *ngIf="this.pageForm.controls.pages.value[i].name"
+                  class="text-success"
+                  >The page name appears in the URL.</mat-hint
+                >
+                <mat-hint
+                  class="text-danger"
+                  *ngIf="
+                    this.pageForm.controls.pages.touched &&
+                    !this.pageForm.controls.pages.value[i].name
+                  "
+                  >Page Name is required !</mat-hint
+                >
+              </mat-form-field>
+              <mat-form-field appearance="fill" class="w-100 mt-4">
+                <input
+                  matInput
+                  [ngxMatDatetimePicker]="picker"
+                  placeholder="Duration"
+                  formControlName="expiry_at"
+                  [min]="startDate"
+                />
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="$any(picker)"
+                ></mat-datepicker-toggle>
+                <ngx-mat-datetime-picker
+                  #picker
+                  [showSpinners]="showSpinners"
+                  [showSeconds]="showSeconds"
+                  [stepHour]="stepHour"
+                  [stepMinute]="stepMinute"
+                  [stepSecond]="stepSecond"
+                  [touchUi]="touchUi"
+                  [color]="color"
+                  [enableMeridian]="true"
+                >
+                  <ng-template>
+                    <span>OK</span>
+                  </ng-template>
+                </ngx-mat-datetime-picker>
+                <mat-hint
+                  class="text-danger"
+                  *ngIf="
+                    this.pageForm.controls.pages.touched &&
+                    !this.pageForm.controls.pages.value[i].expiry_at
+                  "
+                >
+                  Duration is required !
+                </mat-hint>
+              </mat-form-field> -->
+              <div class="media-section w-100 position-relative">
+                <mat-form-field
+                  appearance="fill"
+                  class="w-100 mt-4 full-width-btn"
+                >
+                  <ngx-mat-file-input
+                    #removableInput
+                    formControlName="media"
+                    (input)="uploadDocument($event, i)"
+                    accept="image/*, video/*"
+                    placeholder="Upload Content"
+                  ></ngx-mat-file-input>
+                  <mat-hint>Accept Images and Videos.</mat-hint>
+                </mat-form-field>
+                <button
+                  mat-icon-button
+                  class="border-0"
+                  matSuffix
+                  *ngIf="this.pageForm.controls.pages.value[i].media"
+                  type="button"
+                  (click)="removeMedia(i)"
+                  style="
+                    position: absolute;
+                    top: -363px;
+                    right: 13px;
+                    background: #fff;
+                    z-index: 999999;
+                    justify-content: center;
+                    display: flex;
+                    align-items: center;
+                  "
+                >
+                  <mat-icon>clear</mat-icon>
+                </button>
+              </div>
+            </div>
+          </div>
+          <button
+            class="
+              mt-3
+              border-0
+              py-2
+              px-3
+              d-flex
+              text-danger
+              bg-transparent
+              align-items-center
+              justify-content-center
+            "
+            style="position: absolute; right: 0"
+            type="button"
+            (click)="removePage(i)"
+          >
+            <mat-icon>delete</mat-icon>
+          </button>
+          <button
+            *ngIf="this.pageForm.controls.pages.value[i].hasError"
+            class="
+              mt-3
+              border-0
+              py-2
+              px-3
+              d-flex
+              bg-transparent
+              align-items-center
+              justify-content-center
+            "
+            type="button"
+            (click)="tryAgain(i)"
+          >
+            <mat-icon>refresh</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+    <button
+      class="add-page-btn d-flex align-items-center flex-column m-3"
+      type="button"
+      (click)="addItem()"
+    >
+      <mat-icon>add_circle</mat-icon>
+      <span class="font-weight-bold mt-3 text-uppercase">Add new page</span>
+    </button>
+    <div
+      class="info mt-5 d-flex align-items-center justify-content-center w-100"
+    >
+      <button
+        class="
+          btn-primary
+          py-2
+          px-3
+          d-flex
+          align-items-center
+          justify-content-center
+        "
+        type="button"
+        (click)="publishPage()"
+      >
+        <mat-icon>publish</mat-icon>
+        <span class="ml-2">Publish</span>
+      </button>
+      <button
+        class="
+          btn-secondary
+          mx-3
+          py-2
+          px-3
+          d-flex
+          align-items-center
+          justify-content-center
+        "
+        type="button"
+        (click)="savePage()"
+      >
+        <mat-icon>save</mat-icon>
+        <span class="ml-2">Save</span>
+      </button>
+    </div>
+  </form>
+</section>

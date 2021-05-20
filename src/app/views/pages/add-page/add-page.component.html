@@ -1,0 +1,324 @@
+<section id="pages" class="wow fadeIn">
+  <div class="d-flex align-items-center justify-content-between">
+    <!-- BreadCurme -->
+    <div class="breadcurme d-flex align-items-center">
+      <mat-icon>label</mat-icon>
+      <div>
+        <span class="ml-2 font-weight-bold pointer" routerLink="/pages"
+          >Pages</span
+        >
+        <span> - {{ editMode ? "Update Page" : "Add New Page" }}</span>
+      </div>
+    </div>
+    <div>
+      <button
+        mat-button
+        class="menu-button d-flex align-items-center add-btn"
+        routerLink="/users/add-user"
+        type="button"
+      >
+        <mat-icon>label</mat-icon>
+        <span>Pages List</span>
+      </button>
+    </div>
+  </div>
+  <form
+    [formGroup]="pageForm"
+    class="wow fadeIn row w-100 mx-0 align-items-stretch h-100 mt-4"
+  >
+    <div class="p-lg-3 text-center mt-3 col-lg-8">
+      <h4 class="font-weight-bold text-uppercase">
+        {{ editMode ? "Update Page" : "Create New Page" }}
+      </h4>
+      <div class="card-body p-0">
+        <p class="mt-3 font-weight-bold">
+          Upload Media Content <span class="text-danger">*</span>
+        </p>
+        <div class="media-section w-100">
+          <div
+            cdkDropList
+            #todoList="cdkDropList"
+            [cdkDropListData]="imgSRC"
+            [cdkDropListConnectedTo]="[doneList]"
+            class="
+              example-list-drop
+              d-flex
+              align-items-center
+              justify-content-center
+            "
+            (cdkDropListDropped)="drop($event)"
+          >
+            <p
+              *ngIf="
+                (!imgSRC[0] && mediaType == 1) ||
+                (!videoSRC[0] && mediaType == 2)
+              "
+              class="w-100"
+            >
+              Drage and Drop from the gallery
+            </p>
+            <img
+              *ngIf="imgSRC[0]"
+              class="w-100 h-100"
+              [src]="imgSRC[0]"
+              alt="Image"
+            />
+            <video
+              *ngIf="videoSRC[0]"
+              [src]="videoSRC[0]"
+              controls
+              class="w-100 h-100"
+            ></video>
+            <button
+              (click)="removeMedia()"
+              *ngIf="videoSRC[0] || imgSRC[0]"
+              type="button"
+              class="
+                border-0
+                bg-black
+                d-flex
+                align-items-center
+                justify-content-center
+              "
+              style="position: absolute; top: 109px; right: 32px"
+            >
+              <mat-icon>close</mat-icon>
+            </button>
+          </div>
+          <mat-form-field
+            class="w-100 mt-4 full-width-btn"
+            *ngIf="!pageForm.controls.media.value"
+          >
+            <ngx-mat-file-input
+              #removableInput
+              formControlName="media"
+              (input)="uploadDocument($event)"
+              accept="image/*, video/*"
+              placeholder="Upload Content"
+            ></ngx-mat-file-input>
+            <mat-hint>Accept Images and Videos.</mat-hint>
+          </mat-form-field>
+        </div>
+        <p *ngIf="errorMediaMSG" class="bg-danger wow bounceIn text-white p-2">
+          Max Size is 10MB
+        </p>
+        <div class="background position-relative">
+          <p class="mt-3 font-weight-bold">Upload Background</p>
+          <img
+            class="w-100 bg-default"
+            [src]="
+              bgSRC
+                ? bgSRC
+                : 'https://image.freepik.com/free-vector/white-blurred-background_1034-249.jpg'
+            "
+            alt="Image"
+          />
+          <mat-form-field class="w-100 mt-4 full-width-btn" *ngIf="!bgSRC">
+            <ngx-mat-file-input
+              formControlName="background"
+              placeholder="Upload Background"
+              #removableBG
+              accept="image/*"
+              class="upload-bg"
+              (input)="uploadBackground($event)"
+            >
+              <mat-icon ngxMatFileInputIcon>folder</mat-icon>
+            </ngx-mat-file-input>
+            <mat-hint> Accept Images Only. </mat-hint>
+          </mat-form-field>
+          <button
+            style="position: absolute; top: 41px; right: 5px"
+            mat-icon-button
+            class="
+              border-0
+              bg-black
+              d-flex
+              align-items-center
+              justify-content-center
+            "
+            matSuffix
+            type="button"
+            (click)="removeBG()"
+            *ngIf="bgSRC"
+          >
+            <mat-icon>clear</mat-icon>
+          </button>
+          <p *ngIf="errorBGMSG" class="bg-danger text-white p-2">
+            Max Size is 500KB.
+          </p>
+        </div>
+      </div>
+      <div class="info mt-4">
+        <div class="">
+          <mat-form-field appearance="fill" class="w-100">
+            <mat-label>Page Name</mat-label>
+            <input
+              matInput
+              placeholder="Page Name"
+              formControlName="name"
+              required
+            />
+            <mat-hint class="text-success" *ngIf="pageForm.get('name').valid"
+              >The page name appears in the URL.</mat-hint
+            >
+            <mat-hint
+              class="d-block text-danger"
+              *ngIf="
+                pageForm.get('name').errors?.required &&
+                pageForm.get('name').touched
+              "
+            >
+              Page Name is required !
+            </mat-hint>
+          </mat-form-field>
+          <mat-form-field appearance="fill" class="w-100 mt-4">
+            <mat-label>Duration</mat-label>
+            <input
+              matInput
+              [ngxMatDatetimePicker]="picker"
+              placeholder="Duration"
+              formControlName="expiry_at"
+              required
+              [min]="startDate"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="$any(picker)"
+            ></mat-datepicker-toggle>
+            <ngx-mat-datetime-picker
+              #picker
+              [showSpinners]="showSpinners"
+              [showSeconds]="showSeconds"
+              [stepHour]="stepHour"
+              [stepMinute]="stepMinute"
+              [stepSecond]="stepSecond"
+              [touchUi]="touchUi"
+              [color]="color"
+              [enableMeridian]="true"
+            >
+              <ng-template>
+                <span>OK</span>
+              </ng-template>
+            </ngx-mat-datetime-picker>
+            <mat-hint
+              class="d-block text-danger"
+              *ngIf="
+                pageForm.get('expiry_at').errors?.required &&
+                pageForm.get('expiry_at').touched
+              "
+            >
+              Duration is required !
+            </mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+      <div
+        class="info mt-4 d-flex align-items-center justify-content-center"
+        *ngIf="!editMode"
+      >
+        <button
+          class="
+            btn-primary
+            py-2
+            px-3
+            d-flex
+            align-items-center
+            justify-content-center
+          "
+          type="button"
+          (click)="publishPage(pageForm.value)"
+          [disabled]="pageForm.invalid"
+        >
+          <mat-icon>slideshow</mat-icon>
+          <span class="ml-2">Publish</span>
+        </button>
+        <button
+          class="
+            btn-secondary
+            mx-3
+            py-2
+            px-3
+            d-flex
+            align-items-center
+            justify-content-center
+          "
+          [disabled]="pageForm.invalid"
+          (click)="savePage(pageForm.value)"
+        >
+          <mat-icon>save</mat-icon>
+          <span class="ml-2">Save Page</span>
+        </button>
+      </div>
+      <div
+        class="info mt-4 d-flex align-items-center justify-content-center"
+        *ngIf="editMode"
+      >
+        <button
+          class="
+            btn-primary
+            py-2
+            px-3
+            d-flex
+            align-items-center
+            justify-content-center
+          "
+          type="button"
+          (click)="editPublishPage(pageForm.value)"
+        >
+          <mat-icon>edit</mat-icon>
+          <span class="ml-2">Edit Page</span>
+        </button>
+        <button
+          class="
+            btn-secondary
+            mx-3
+            py-2
+            px-3
+            d-flex
+            align-items-center
+            justify-content-center
+          "
+          (click)="editSavePage(pageForm.value)"
+        >
+          <mat-icon>save</mat-icon>
+          <span class="ml-2">Save Page</span>
+        </button>
+      </div>
+    </div>
+    <div class="col-lg-4 mt-lg-0 mt-3 bg-grey p-3 px-0">
+      <div class="w-100 py-4" style="position: sticky; top: 0">
+        <header>
+          <h4 class="text-center bg-white font-weight-bold p-3 text-uppercase">
+            Gallery
+          </h4>
+        </header>
+        <div class="img-group">
+          <div
+            cdkDropList
+            #doneList="cdkDropList"
+            [cdkDropListData]="gallery"
+            [cdkDropListConnectedTo]="[todoList]"
+            class="example-list row w-100 mx-0"
+          >
+            <ng-container *ngIf="gallery.length">
+              <div
+                class="example-box col-4 h-100"
+                *ngFor="let item of gallery"
+                cdkDrag
+              >
+                <img
+                  style="width: 100%; height: 80px"
+                  [src]="item"
+                  alt="Image"
+                />
+              </div>
+            </ng-container>
+          </div>
+          <div *ngIf="!gallery.length">
+            <p>No Media at the gallery yet.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</section>

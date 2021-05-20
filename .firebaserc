@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "announcement-f94d6": {
+      "hosting": {
+        "announcement": [
+          "announcement-f94d6"
+        ]
+      }
+    }
+  }
+}

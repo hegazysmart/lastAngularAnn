@@ -11,17 +11,36 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "~11.2.13",
+    "@angular-material-components/datetime-picker": "^5.1.0",
+    "@angular-material-components/file-input": "^5.0.1",
+    "@angular-material-components/moment-adapter": "^5.0.0",
+    "@angular/animations": "^11.2.13",
+    "@angular/cdk": "^11.2.12",
     "@angular/common": "~11.2.13",
     "@angular/compiler": "~11.2.13",
     "@angular/core": "~11.2.13",
+    "@angular/fire": "^6.1.5",
     "@angular/forms": "~11.2.13",
+    "@angular/localize": "~11.2.13",
+    "@angular/material": "^11.2.12",
     "@angular/platform-browser": "~11.2.13",
     "@angular/platform-browser-dynamic": "~11.2.13",
     "@angular/router": "~11.2.13",
+    "@ng-bootstrap/ng-bootstrap": "^9.1.0",
+    "animate.css": "^4.1.1",
+    "bootstrap": "^4.6.0",
+    "jquery": "^3.6.0",
+    "moment": "^2.29.1",
+    "ng2-validation": "^4.2.0",
+    "ngx-file-drop": "^11.1.0",
+    "ngx-pagination": "^5.1.0",
+    "ngx-toastr": "^13.2.1",
     "rxjs": "~6.6.0",
+    "sweetalert2": "^10.16.7",
     "tslib": "^2.0.0",
-    "zone.js": "~0.11.3"
+    "wowjs": "^1.1.3",
+    "zone.js": "~0.11.3",
+    "firebase": "^7.0 || ^8.0"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.1102.12",
@@ -40,6 +59,13 @@
     "protractor": "~7.0.0",
     "ts-node": "~8.3.0",
     "tslint": "~6.1.0",
-    "typescript": "~4.1.5"
+    "typescript": "~4.1.5",
+    "@angular-devkit/architect": ">= 0.900 < 0.1300",
+    "firebase-tools": "^8.0.0 || ^9.0.0",
+    "fuzzy": "^0.1.3",
+    "inquirer": "^6.2.2",
+    "inquirer-autocomplete-prompt": "^1.0.1",
+    "open": "^7.0.3",
+    "jsonc-parser": "^3.0.0"
   }
 }

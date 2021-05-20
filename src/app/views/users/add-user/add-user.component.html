@@ -1,0 +1,151 @@
+<section id="users-list" class="wow fadeIn">
+  <div class="d-flex align-items-center justify-content-between">
+    <!-- BreadCurme -->
+    <div class="breadcurme d-flex align-items-center">
+      <mat-icon>supervised_user_circle</mat-icon>
+      <div>
+        <span class="ml-2 font-weight-bold pointer" routerLink="/users"
+          >Users</span
+        >
+        <span> - {{ editMode ? "Update User" : "Create New User" }}</span>
+      </div>
+    </div>
+    <div>
+      <button
+        mat-button
+        class="menu-button add-btn"
+        routerLink="/users"
+        class="d-flex align-items-center add-btn"
+      >
+        <mat-icon class="mr-2">supervised_user_circle</mat-icon>
+        <span class="">Users List</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="mt-4">
+    <form
+      [formGroup]="userForm"
+      class="col-lg-4 px-0"
+      (ngSubmit)="addUser(userForm.value)"
+    >
+      <!-- Name -->
+      <mat-form-field appearance="fill" class="w-100 wow fadeIn">
+        <mat-label>Enter your username</mat-label>
+        <input
+          matInput
+          placeholder="Enter your username"
+          type="text"
+          required
+          formControlName="name"
+        />
+        <!-- Name Validation -->
+        <mat-hint class="text-danger" *ngIf="userForm.controls.name.touched">
+          <span *ngIf="userForm.controls.name.errors?.required">
+            This field is required!
+          </span>
+        </mat-hint>
+      </mat-form-field>
+      <!-- Email -->
+      <mat-form-field appearance="fill" class="w-100 wow fadeIn mt-3">
+        <mat-label>Email address</mat-label>
+        <input
+          matInput
+          placeholder="Email address"
+          type="email"
+          required
+          formControlName="email"
+        />
+        <!-- Email Validation -->
+        <mat-hint class="text-danger" *ngIf="userForm.controls.email.touched">
+          <span *ngIf="userForm.controls.email.errors?.required">
+            This field is required!
+          </span>
+          <span *ngIf="userForm.controls.email.errors?.email">
+            Invalid Email
+          </span>
+        </mat-hint>
+      </mat-form-field>
+      <!-- Password -->
+      <mat-form-field appearance="fill" class="w-100 wow fadeIn mt-3">
+        <mat-label>Enter new password</mat-label>
+        <input
+          matInput
+          placeholder="Enter new password"
+          [type]="hide ? 'password' : 'text'"
+          required
+          formControlName="password"
+        />
+        <button
+          mat-icon-button
+          matSuffix
+          (click)="hide = !hide"
+          [attr.aria-label]="'Hide password'"
+          [attr.aria-pressed]="hide"
+          type="button"
+          class="border-0"
+        >
+          <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+        </button>
+        <!-- Password Validation -->
+        <mat-hint
+          class="text-danger"
+          *ngIf="userForm.controls.password.touched"
+        >
+          <span *ngIf="userForm.controls.password.errors?.required">
+            This field is required!
+          </span>
+          <span *ngIf="userForm.controls.password.errors?.minlength">
+            Please enter at least 6 characters
+          </span>
+        </mat-hint>
+      </mat-form-field>
+      <!-- Confirm Password -->
+      <mat-form-field appearance="fill" class="w-100 wow fadeIn mt-3">
+        <mat-label>Confirm password</mat-label>
+        <input
+          matInput
+          placeholder="Confirm password"
+          [type]="hide2 ? 'password' : 'text'"
+          required
+          formControlName="password_confirmation"
+        />
+        <button
+          mat-icon-button
+          matSuffix
+          (click)="hide2 = !hide2"
+          [attr.aria-label]="'Hide password'"
+          [attr.aria-pressed]="hide2"
+          class="border-0"
+          type="button"
+        >
+          <mat-icon>{{ hide2 ? "visibility_off" : "visibility" }}</mat-icon>
+        </button>
+        <!-- Password Validation -->
+        <mat-hint
+          class="text-danger"
+          *ngIf="userForm.controls.password_confirmation.touched"
+        >
+          <span
+            *ngIf="userForm.controls.password_confirmation.errors?.required"
+          >
+            This field is required!
+          </span>
+          <span
+            class="d-inline-block w-100"
+            *ngIf="userForm.controls.password_confirmation.errors?.equalTo"
+          >
+            Passwords are not matched
+          </span>
+        </mat-hint>
+      </mat-form-field>
+      <!-- Submit -->
+      <button
+        class="btn btn-primary w-100 wow fadeIn mt-4"
+        [disabled]="userForm.invalid || !submitted"
+      >
+        {{ editMode ? "Update" : "Create" }}
+      </button>
+    </form>
+  </div>
+</section>

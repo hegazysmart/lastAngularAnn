@@ -1,0 +1,87 @@
+.btn-primary {
+  background: $primary;
+  color: #fff !important;
+  border: 1px solid $primary !important;
+  &:hover {
+    transition: 0.5s all ease-in-out;
+  }
+}
+
+.btn-secondary {
+  background: transparent !important;
+  border: 1px solid $primary !important;
+  color: $primary !important;
+  &:hover {
+    background: $primary !important;
+    color: #fff !important;
+    transition: 0.5s all ease-in-out;
+  }
+}
+
+button:disabled {
+  opacity: 0.5;
+}
+
+.btn-delete {
+  background: #adadad;
+  border: 1px solid #adadad;
+  color: #fff;
+  &:hover {
+    transition: 0.5s all ease-in-out;
+    background: #696969;
+  }
+}
+
+.add-btn {
+  background: $primary;
+  color: #fff;
+  min-width: 64px;
+  line-height: 36px;
+  padding: 0 16px;
+  border: 0;
+  border-radius: 4px;
+}
+.file {
+  display: none;
+}
+.upload-btn {
+  border: 0;
+  background-color: #6c757d;
+  padding: 8px 20px;
+  border-radius: 8px;
+  color: #fff;
+  font-weight: bold;
+}
+.mat-icon-button.mat-primary {
+  background: #5656ff !important;
+  border-radius: 0;
+  position: relative;
+  color: #fff;
+  z-index: 99;
+  height: 3.5em !important;
+  // width: 4.5em !important;
+  position: relative;
+  top: -13px;
+  mat-icon {
+    font-size: 18px !important;
+  }
+}
+.single-content {
+  width: 37%;
+  position: absolute;
+  top: 7%;
+  left: 32%;
+  max-height: 100%;
+}
+.ngx-file-drop__drop-zone {
+  border-radius: 0 !important;
+  height: 333px !important;
+}
+.ngx-file-drop__content {
+  height: 333px !important;
+}
+.example-list-drop {
+  height: 400px;
+  width: 100%;
+  border: 1px dashed $primary;
+}

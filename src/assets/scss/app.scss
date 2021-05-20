@@ -1,0 +1,12 @@
+@import "./theme/variables.scss";
+@import "./theme/fonts.scss";
+@import "./theme/forms.scss";
+
+@import "./layout.scss";
+@import "./login.scss";
+@import "./preview.scss";
+
+// Global Style
+body {
+  background: #f7f8ff;
+}

@@ -1,0 +1,377 @@
+mat-toolbar {
+  padding: 0 !important;
+  border-bottom: 1px solid #dee4ec;
+  position: relative;
+  background: #fff !important;
+  z-index: 99;
+  .toolbar-actions {
+    box-shadow: 5px 7px 26px -5px #cdd4e7;
+  }
+  .logo-container {
+    width: 283px;
+    border-right: 1px solid #eae8f1;
+  }
+}
+
+.toolbar-icon {
+  color: #5b6e88;
+}
+.mat-drawer {
+  background: #fff;
+  color: #333;
+  box-shadow: 0px 8px 14.72px 1.28px rgb(229 228 230 / 50%);
+}
+mat-sidenav {
+  width: 240px;
+  padding: 16px;
+}
+.content {
+  margin: 16px;
+}
+
+mat-sidenav-container {
+  height: calc(100vh - 65px);
+}
+
+.menu-button {
+  width: 100%;
+  font-size: 1rem;
+
+  mat-icon {
+    margin-right: 8px;
+  }
+}
+
+mat-icon {
+  cursor: pointer;
+}
+
+.menu-button.active {
+  background: #5656ff !important;
+  color: #fff;
+  mat-icon {
+    color: #fff;
+  }
+}
+
+.admain-info {
+  line-height: 23px;
+  p {
+    color: rgba(255, 255, 255, 0.7);
+  }
+}
+
+.avatar {
+  display: block;
+  margin: 0 auto 0px;
+  border: 2px solid #c9d2e8;
+  box-shadow: 0px 5px 5px 0px rgb(44 44 44 / 20%);
+  padding: 3px;
+  background: #fff;
+  border-radius: 50%;
+  width: 72px;
+  height: 72px;
+}
+.profile-status {
+  position: relative;
+  display: block;
+  bottom: 46px;
+  right: -122px;
+  width: 8px;
+  height: 7px;
+  box-shadow: 0 0 0 2px rgb(255 255 255 / 95%);
+  border-radius: 100%;
+  top: -15px;
+  background: #22c03c;
+  &::before {
+    content: "";
+    top: -6px;
+    right: -6px;
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(34, 192, 60, 0.5);
+    cursor: pointer;
+    box-shadow: 0 0 0 rgb(34 192 60 / 90%);
+    animation: pulse 1s linear infinite;
+  }
+}
+
+.user-info {
+  line-height: 10px;
+  h4 {
+    font-size: 15px;
+    color: #14112d;
+    font-weight: 500;
+  }
+  span {
+    color: #8991a5;
+    font-size: 13px;
+  }
+}
+
+.user {
+  width: 37px;
+  height: 37px;
+  border-radius: 50%;
+}
+
+mat-divider {
+  margin-top: 16px;
+  margin-bottom: 16px;
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.logo {
+  max-width: 170px;
+  max-height: 59px;
+}
+
+.dropdown-toggle::after {
+  display: none !important;
+}
+
+div[aria-labelledby="dropdownProfile"] {
+  box-shadow: 0px 0px 15px 1px rgb(69 65 78 / 20%);
+  transform: unset !important;
+  top: unset;
+  border: none;
+  padding-top: 0 !important;
+  border-top-right-radius: 7px;
+  border-top-left-radius: 7px;
+  min-width: 245px;
+  left: -188px !important;
+  top: 52px !important;
+  &::after {
+    content: "";
+    position: absolute;
+    top: -8.5px;
+    right: 24px;
+    border-bottom: 9px solid #5656ff;
+    border-left: 9px solid transparent;
+    border-right: 9px solid transparent;
+  }
+  .main-header-profile {
+    background: #5656ff;
+    border-top-right-radius: 7px;
+    border-top-left-radius: 7px;
+    .main-user-img {
+      img {
+        width: 45px;
+        height: 45px;
+        border-radius: 100%;
+      }
+    }
+    h6 {
+      font-size: 14px;
+      letter-spacing: 1px;
+      font-weight: 600;
+    }
+    span {
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.6);
+    }
+  }
+  .user-actions {
+    li {
+      transition: 0.5s all ease-in-out;
+      border-top: 1px dotted #e2eaf9;
+      padding: 20px 16px;
+      height: 38px;
+      cursor: pointer;
+      color: #031b4e;
+      font-size: 13px;
+      &:hover {
+        color: #5656ff;
+      }
+    }
+  }
+}
+
+// Mobile
+@media (min-width: 320px) and (max-width: 425px) {
+  mat-sidenav {
+    width: 245px;
+    padding: 16px;
+  }
+}
+
+// Tablet
+@media (min-width: 426px) and (max-width: 768px) {
+  mat-sidenav {
+    width: 245px;
+    padding: 16px;
+  }
+}
+
+.pulse {
+  display: block;
+  position: absolute;
+  top: 5px;
+  right: 8px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: rgb(34, 192, 60);
+  @keyframes pulse {
+    0% {
+      transform: scale(0.95);
+      box-shadow: 0 0 0 0 rgba(34, 192, 60, 0.7);
+    }
+
+    70% {
+      transform: scale(1);
+      box-shadow: 0 0 0 10px rgba(34, 192, 60, 0);
+    }
+
+    100% {
+      transform: scale(0.95);
+      box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+    }
+  }
+  &::before {
+    content: "";
+    top: -1px;
+    right: -1px;
+    width: 10px;
+    height: 10px;
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(34, 192, 60, 0.6);
+    cursor: pointer;
+    box-shadow: 0 0 0 rgb(34 192 60 / 90%);
+    animation: pulse 1s linear infinite;
+  }
+}
+.breadcurme {
+  color: #5b6e88;
+}
+.pointer {
+  cursor: pointer;
+}
+.bg-default {
+  height: 333px;
+}
+.remove-media {
+  position: absolute;
+  right: 21px;
+  top: 62px;
+  width: 25px;
+  height: 25px;
+  background: #fff;
+  border-radius: 50%;
+  box-shadow: -2px 9px 20px rgb(0 0 0 / 50%);
+}
+.cardPage-body {
+  .bg-default {
+    height: 291px;
+    width: 100%;
+  }
+}
+.bg-grey {
+  background: #eaeaea;
+}
+
+.add-page-btn {
+  height: 230px;
+  border-radius: 50%;
+  width: 230px;
+  border: 0;
+  backdrop-filter: blur(53px);
+  background: rgba(241 240 240 /0.6);
+  mat-icon {
+    color: #e6e0e0;
+    font-size: 200px;
+    width: 230px;
+    height: 230px;
+    line-height: 230px;
+  }
+}
+.imgContent {
+  width: 86%;
+  position: absolute;
+  top: 18%;
+  left: 7%;
+  height: 26%;
+}
+.sub-menu {
+  span {
+    font-size: 14px;
+  }
+}
+.sub-active {
+  span,
+  mat-icon {
+    color: #5656ff;
+  }
+}
+#ngx-mat-fileinput-0,
+#ngx-mat-fileinput-1 {
+  display: none;
+}
+.full-width-btn {
+  .mat-form-field-suffix {
+    width: 100% !important;
+    .mat-icon-button.mat-primary {
+      width: 100% !important;
+    }
+  }
+}
+.cardPage {
+  width: 100%;
+  height: 400px;
+  .image {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    img {
+      width: 100%;
+      height: 100%;
+      transition: 0.5s;
+    }
+  }
+}
+.cardPage .image .cardPage:hover .image img {
+  opacity: 0.5;
+  transform: translateX(30%); /*100%*/
+}
+.cardPage .details {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 70%; /*100%*/
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  transition: 0.5s;
+  transform-origin: left;
+  transform: perspective(2000px) rotateY(-90deg);
+}
+.cardPage:hover .details {
+  transform: perspective(2000px) rotateY(0deg);
+}
+.cardPage .details .center {
+  padding: 20px;
+  text-align: center;
+  background: #fff;
+  position: absolute;
+  color: #333;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.btn-actions {
+  button {
+    background: $primary;
+    color: #fff;
+    border: 0;
+    padding: 5px 10px;
+  }
+  :hover {
+    background: #beaffb;
+    transition: 0.5s all ease-in-out;
+  }
+}
+.ngx-pagination {
+  padding: 0;
+}

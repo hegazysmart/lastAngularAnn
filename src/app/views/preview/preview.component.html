@@ -1,0 +1,12 @@
+<section id="privew" *ngIf="page">
+  <div class="media-container d-flex align-items-center justify-content-center">
+    <img [src]="page.background" class="back-ground" alt="background" />
+    <img [src]="page.url" class="media" *ngIf="page.type_id == 1" alt="Image" />
+    <video
+      autoplay
+      [src]="page.url"
+      class="media"
+      *ngIf="page.type_id == 2"
+    ></video>
+  </div>
+</section>

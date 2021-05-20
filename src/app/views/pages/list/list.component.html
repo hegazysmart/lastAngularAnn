@@ -1,0 +1,118 @@
+<section class="">
+  <div class="breadcurme d-flex align-items-center">
+    <mat-icon>label</mat-icon>
+    <div>
+      <span class="ml-2 font-weight-bold pointer">Pages</span>
+      <span> - Pages List</span>
+    </div>
+  </div>
+  <div class="d-flex align-items-center justify-content-around">
+    <mat-form-field class="mt-5 w-100 mr-2" appearance="fill">
+      <mat-label>Search for page name</mat-label>
+      <input
+        matInput
+        (keyup)="applyFilter($event)"
+        placeholder="Search for page name"
+        #input
+      />
+      <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+    <!-- <mat-form-field class="mt-5 w-100 ml-2" appearance="fill">
+      <mat-label>Expire Date</mat-label>
+      <input
+        matInput
+        [ngxMatDatetimePicker]="picker"
+        placeholder="Expire Date"
+        [formControl]="dateControl"
+      />
+      <mat-datepicker-toggle
+        matSuffix
+        [for]="$any(picker)"
+      ></mat-datepicker-toggle>
+      <ngx-mat-datetime-picker
+        #picker
+        [showSpinners]="showSpinners"
+        [showSeconds]="showSeconds"
+        [stepHour]="stepHour"
+        [stepMinute]="stepMinute"
+        [stepSecond]="stepSecond"
+        [touchUi]="touchUi"
+        [color]="color"
+        [enableMeridian]="true"
+      >
+        <ng-template>
+          <span>OK</span>
+        </ng-template>
+      </ngx-mat-datetime-picker>
+    </mat-form-field> -->
+  </div>
+
+  <div class="row align-items-stretch mt-3 no-gutters">
+    <div
+      class="col-md-5 mx-3 mt-4"
+      *ngFor="
+        let page of pages | paginate: { itemsPerPage: 6, currentPage: p };
+        let i = index
+      "
+    >
+      <div class="cardPage">
+        <div class="image">
+          <img
+            [src]="
+              page['background']
+                ? page['background']
+                : 'https://image.freepik.com/free-vector/white-blurred-background_1034-249.jpg'
+            "
+          />
+        </div>
+        <div class="details">
+          <div class="center">
+            <h2 class="card-text fixed-hight text-capitalize">
+              {{ page["name"] }}
+            </h2>
+            <h4 class="card-title">
+              <span class="">Expire Date : </span>
+              {{ page["expiry_at"] | date }}
+            </h4>
+            <div class="d-flex justify-content-between btn-actions mb-3 w-100">
+              <button
+                class="d-flex align-items-center"
+                [routerLink]="['/pages/add-page']"
+                [queryParams]="{ id: page.id, editMode: true }"
+              >
+                <mat-icon>edit</mat-icon>
+                <span>Edit</span>
+              </button>
+              <button
+                class="d-flex align-items-center mx-2"
+                (click)="deletePage(page)"
+              >
+                <mat-icon>delete</mat-icon>
+                <span>Delete</span>
+              </button>
+              <button
+                class="d-flex align-items-center mr-2"
+                [routerLink]="['/preview']"
+                [queryParams]="{ id: page.id }"
+              >
+                <mat-icon>slideshow</mat-icon>
+                <span>Preview</span>
+              </button>
+              <button
+                class="d-flex align-items-center"
+                *ngIf="page.status == 0"
+                (click)="publishPage(page)"
+              >
+                <mat-icon>publish</mat-icon>
+                <span>Publish</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="w-100 mt-5 d-flex justify-content-center">
+      <pagination-controls (pageChange)="p = $event"></pagination-controls>
+    </div>
+  </div>
+</section>
